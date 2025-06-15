@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A morte Argentina</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f24c8e, #f24ae1);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            padding: 20px;
+            opacity: 0; /* Para animação de fade-in */
+            transition: opacity 1.5s ease;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-family: 'Georgia', serif;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Seção de slideshow */
+        .slideshow {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        /* Texto sobre a imagem */
+        .slide-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            max-width: 90%;
+        }
+
+        /* Conteúdo de informações */
+        .content {
+            max-width: 800px;
+            background: rgba(0,0,0,0.6);
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        /* Estilos adicionais */
+        footer {
+            margin-top: 30px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        /* Botões de navegação */
+        .nav-buttons {
+            margin-top: 15px;
+        }
+
+        .nav-buttons button {
+            background-color: rgba(255,255,255,0.8);
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background-color: rgba(255,255,255,1);
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>Maip - A Morte Argentina</h1>
+    </header>
+
+    <div class="slideshow" id="slideshow"> 
+        <div class="slide" style="background-image: url('IMGS/maip\ wp.jpg');">
+            <div class="slide-text">Maip - A morte Argentina</div>
+        </div>
+        <div class="slide" style="background-image: url('IMGS/maip\ arms.jpg');">
+            <div class="slide-text">Maip viveu no final do cretaceu a aproximadamente 70 milhões de anos atras</div>
+        </div>
+        <div class="slide" style="background-image: url('IMGS/maip\ model.jpg');">
+            <div class="slide-text">Com garras mortais e um corpo agil, era uma maquina de matar</div>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button id="prevBtn">Anterior</button>
+         <a href="index.html"><button>Voltar a Lista</button> </a>
+        <button id="nextBtn">Próximo</button>
+    </div>
+
+    <div class="content">
+        <h2>Sobre Maip</h2>
+        <p>Maip é um gênero de dinossauros terópodes do grupo dos Megarraptores, nativo da Formação Chorrillo, do extremo sul da Patagônia argentina.</p>
+        <p>O T-Rex era um gigante carnívoro, podendo atingir até 12 metros de comprimento e pesar cerca de 9 toneladas. Sua mandíbula poderosa continha dentes afiados, capazes de triturar ossos e carne de suas presas, tornando-o um predador de topo na sua cadeia alimentar.</p>
+        <p>Apesar de sua aparência ameaçadora, estudos sugerem que o T-Rex tinha uma visão aguçada, excelente olfato e uma velocidade surpreendente para seu tamanho. Sua fama se consolidou por sua presença em filmes, livros e estudos paleontológicos, simbolizando a força e a ferocidade dos dinossauros.</p>
+        <p>Hoje, fósseis de T-Rex continuam sendo descobertos, ajudando os cientistas a entender melhor a vida desses incríveis seres pré-históricos.</p>
+    </div>
+
+    <footer>
+        © 2024 Mundo dos Dinossauros. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        // Animação de fade-in ao carregar
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Código do slideshow
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        let slideInterval = null;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = (i === index) ? '1' : '0';
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // Automático: troca de slide a cada 5 segundos
+        slideInterval = setInterval(nextSlide, 5000);
+
+        // Controle manual
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            clearInterval(slideInterval);
+            nextSlide();
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            clearInterval(slideInterval);
+            prevSlide();
+            slideInterval = setInterval(nextSlide, 5000);
+        });
+
+        // Inicializa o primeiro slide
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
